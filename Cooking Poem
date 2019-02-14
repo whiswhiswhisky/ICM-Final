@@ -1,0 +1,48 @@
+# Cooking Poem
+# Created by Wenjing Liu, Feb 13 2019
+import random
+
+starter = ['garlic','ginger','onion']
+veggie = ['carrot','purple onion', 'tomato','potato','broccoli','bell pepper','asparagus','squash','mushroom','eggplant','','celery','Brussels sprout']
+meat = ['pork belly','beef sirloin','chick thigh', 'chicken breast','chicken wings','shrimp']
+sauce = ['sesame oil', 'vinegar','sherry wine','soy sauce']
+seasoner = ['black pepper','salt','suger',"Teriyaky sauce","Szechuan sauce"]
+daliao = ['chili','Chinese cinnamon','Szechuan pepper']
+preStarter = ['mince','ground']
+prepare = ['chop','dice','slice','cut']
+cook = ['stir-fry','cook']
+top = ['green onion','sesame seeds']
+carb = ['rice','udon','noodle','naan']
+
+thisStarter = random.choice(starter)
+thisVeggie = random.sample(veggie,k=3)
+thisMeat = random.choice(meat)
+thisSauce = random.sample(sauce,k=3)
+thisSeasoner = random.sample(seasoner,k=2)
+
+print("Cooking Poem")
+print()
+print(random.choice(preStarter).title() + " " + thisStarter + ".")
+print("Set aside.")
+print()
+print(random.choice(prepare).title() +" "+ thisVeggie[0] + ", " + thisVeggie[1] + " and " + thisVeggie[2] + ".")
+print("Set aside.")
+print()
+print("In a small bowl, pour the "+ thisSauce[0] + ", "+thisSauce[1]+" and "+thisSauce[2])
+print("Stir it.")
+print()
+print("Place " + thisMeat + " in the bowl. Season with "+ thisSeasoner[0]+" and "+thisSeasoner[1])
+print("Marinade it, for 30 minutes.")
+print()
+print("Drizzle 1 teaspoon oil into a skillet with high heat.")
+print("Stir in "+thisStarter+" and cook until tempting fragrant,")
+print("about 1 minute.")
+print()
+print("Add " + thisMeat+". Stir-fry until it is golden-ish.")
+print("Reduce to medium heat and add "+ thisVeggie[0]+", "+thisVeggie[1]+" and "+thisVeggie[2]+".")
+print("Add " + random.choice(daliao)+".")
+print()
+print("Stir-fry until everything is cooked through.")
+print("Garnish with "+random.choice(top)+".")
+print("Servie over "+random.choice(carb)+".")
+print("Eat it.")
