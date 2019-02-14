@@ -1,0 +1,24 @@
+import random
+import textwrap
+
+newspaper = """
+浔阳江头夜送客，枫叶荻花秋瑟瑟。
+主人下马客在船，举酒欲饮无管弦。
+醉不成欢惨将别，别时茫茫江浸月。
+忽闻水上琵琶声，主人忘归客不发。
+"""
+
+#text = newspaper.split("")
+text = [char for char in newspaper if (ord(char) > 128 and ord(char) != 12290 and ord(char) != 65292)]
+
+# text = []
+# for char in newspaper:
+#     if ord(char) > 128:
+#         text.append(ord(char))
+
+# random.shuffle(text)
+# print(textwrap.fill("".join(text), 50))
+
+line_count = 4
+for i in range(line_count):
+    print("".join(random.sample(text,k=7))+"，"+"".join(random.sample(text,k=7))+"。")
