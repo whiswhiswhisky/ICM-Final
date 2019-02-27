@@ -1,0 +1,68 @@
+import random
+r = random.SystemRandom()
+import re
+import json
+
+article = open('asset/cities.txt').read()
+oldCities = ["Zenobia","Fedora","Euphemia","Valdrada","Zoe","Seoni","Kublai"]
+for city in oldCities:
+    article = article.replace(city,"thisCity")
+article=article.strip();
+
+#Clean and update the list
+phrases = article.replace("?",".").split('.')
+#phrases = re.split('. |? ',article) why it is not working?
+phrases = [item.strip().replace("\n","").capitalize() for item in phrases]
+
+print("Future City Travel Guide 2089")
+print("")
+
+Ptryout =0
+Ctryout = 0
+
+cityCount = 0
+randomCity = []
+randomPhrase = []
+
+while(cityCount < 3):
+    #import city database
+    with open('asset/cityData.txt') as json_file:
+        data = json.load(json_file)
+        index = r.randint(0, 23018)
+        thisCity = data[index]["name"]
+    cChecker = True
+    #Test if this random city has been used before
+    for item in randomCity:
+        if thisCity == item:
+            cChecker = False
+            break
+            
+    #if it is a new one
+    if cChecker == True:
+        randomCity.append(thisCity)
+        print(thisCity + ", " + data[index]["country"])
+        cityCount += 1
+        
+        #start generate description for this city
+        phraseCount = 0
+        while (phraseCount <= 3):
+            pChecker = True
+            thisText = random.choice(phrases)
+            for item in randomPhrase:
+                if thisText == item:
+                    pChecker = False
+                    break
+            if pChecker == True:
+                randomPhrase.append(thisText)
+                newText = thisText.replace("thiscity",thisCity).replace("Thiscity",thisCity.capitalize())
+                print(newText+".")
+                phraseCount += 1
+            else:
+                Ptryout += 1
+        print("")
+        
+    else:
+        Ctryout += 1
+
+print(Ctryout)
+print(Ptryout)
