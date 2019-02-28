@@ -14,8 +14,14 @@ phrases = article.replace("?",".").split('.')
 #phrases = re.split('. |? ',article) why it is not working?
 phrases = [item.strip().replace("\n","").capitalize() for item in phrases]
 
+#Compose the major parts
 print("Future City Travel Guide 2089")
 print("")
+futureCity = open('asset/futureCity.txt').read().replace("\n","").split(".")
+#futureCity.remove(item) for item in futureCity if item == ""
+for item in futureCity:
+    if item == "":
+        futureCity.remove(item)
 
 Ptryout =0
 Ctryout = 0
@@ -40,12 +46,13 @@ while(cityCount < 3):
     #if it is a new one
     if cChecker == True:
         randomCity.append(thisCity)
-        print(thisCity + ", " + data[index]["country"])
+        print(thisCity)
+        # + ", " + data[index]["country"]
         cityCount += 1
         
         #start generate description for this city
         phraseCount = 0
-        while (phraseCount <= 3):
+        while (phraseCount < 2):
             pChecker = True
             thisText = random.choice(phrases)
             for item in randomPhrase:
@@ -56,6 +63,10 @@ while(cityCount < 3):
                 randomPhrase.append(thisText)
                 newText = thisText.replace("thiscity",thisCity).replace("Thiscity",thisCity.capitalize())
                 print(newText+".")
+                if phraseCount == 0:
+                    thisFuture = random.choice(futureCity)
+                    print(thisFuture+".")
+                    futureCity.remove(thisFuture)
                 phraseCount += 1
             else:
                 Ptryout += 1
