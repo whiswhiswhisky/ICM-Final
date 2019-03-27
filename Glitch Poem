@@ -1,0 +1,68 @@
+import random
+!pip install tracery
+import tracery
+from tracery.modifiers import base_english
+import json
+
+! pip install -U textblob
+!python -m textblob.download_corpora
+
+weibo = open("asset/weibo.txt").read().replace("\n"," ")
+# weibo = [item.strip() for item in weibo]
+# item.strip() for item in weibo
+weibo
+
+values = open("asset/coreSocialistValue.txt").read().split(",")
+value
+
+consts = open("asset/chineseConstitution.txt").read().split("\n")
+const
+
+from textblob import TextBlob
+
+test = TextBlob(weibo)
+
+test.tags
+
+test.noun_phrases
+
+verbs = []
+nouns = []
+adjs = []
+
+for word,tag in test.tags:
+    if (tag == "NN" or tag == "NNS"):
+        nouns.append(word.lower())
+    elif (tag == "JJ" or tag == "JJS"):
+        adjs.append(word.lower())
+    elif (tag == "VBP" or tag == "VP" or tag == "VBG" or tag == "VBZ" or tag == "VBD"):
+        verbs.append(word.lower())
+
+rules = {
+    "origin" : ["#interjection.capitalize#, I want #noun#, #adj.a# #noun# that #verb.s#."],
+    "noun" : nouns,
+    "adj" : adjs,
+    "verb" : verbs,
+    "value": values,
+    "interjection" : ["oops","dammit","oh God","thanks Lord","nice","hmmm","alas"]
+}
+
+grammar = tracery.Grammar(rules)
+grammar.add_modifiers(base_english)
+print(grammar.flatten("#origin#"))
+
+interjection = random.choice(["Oh", "Rats", "Gee"])
+rules = {
+    "origin": "#start#\n#mid#\n#end#",
+    "start": ["I don't know if #noun# exists.","I don't knowwww if #noun# exists."],
+    "mid": ["If #noun# #verb##verb# #adj.a# #noun#,","If #value# #verb# #adj.a# #noun#,","   The #noun# that #verb#,"],
+    "end": ["    What a #adj# #noun#!","What a #adj# #value#!","What a #adj# ***!"],
+    "noun" : nouns,
+    "adj" : adjs,
+    "verb" : verbs,
+    "value": values
+}
+grammar = tracery.Grammar(rules)
+grammar.add_modifiers(base_english)
+haiku = grammar.flatten("#origin#"+"\n\n"+"#origin#"+"\n\n"+"#origin#"+"\n")
+print(haiku)
